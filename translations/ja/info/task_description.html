@@ -74,13 +74,7 @@
     <p>
         <strong>例</strong>
     </p>
-    <pre class="brush: python">{% if interpreter.slug == "js-node" %}
-safePawns(["b4", "d4", "f4", "c3", "e3", "g5", "d2"]) == 6
-safePawns(["b4", "c4", "d4", "e4", "f4", "g4", "e5"]) == 1
-{% else %}
-safe_pawns({"b4", "d4", "f4", "c3", "e3", "g5", "d2"}) == 6
-safe_pawns({"b4", "c4", "d4", "e4", "f4", "g4", "e5"}) == 1
-{% endif %}</pre>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
 
 <p class="for_info_only">

@@ -1,54 +1,128 @@
-<body data-author="bryukh">
+<body data-author="Doppelok">
 <div class="question-answer">
     <div class="question">
-        I have no idea how to start solving this mission
+        I don't know how to start solving this mission
     </div>
     <div class="answer">
-        Let's convert all the coordinates in indexes as a first step.
-
-<pre class="brush: python">
-pawns_indexes = set()
+        The idea is as follows. You have a list with the coordinates of the placement of pawns. Convert it to the form of a matrix, like a checkerboard.
+         With the help of this matrix, you will be able to calculate the relative position of the pawns among themselves and determine how many of them are safe.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I need help to continue the mission
+    </div>
+    <div class="answer">
+        It will be useful for you to read some information about:
+        <a href='https://docs.python.org/3.10/library/functions.html#int'>int()</a>
+        (<a href='https://www.w3schools.com/python/ref_func_int.asp'>приклад</a> ),
+        <a href='https://docs.python.org/3.10/library/functions.html#ord'>ord()</a>
+        (<a href='https://www.w3schools.com/python/ref_func_ord.asp'>приклад</a> ), та
+        <a href='https://www.w3schools.com/python/ref_set_add.asp'>set.add()</a>.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Need help!
+    </div>
+    <div class="answer">
+        As a first step, let's convert our pawn coordinates to a numeric style so that we can then work with them like
+        a matrix. To do this, we will use int() so that the number from the string becomes an integer data type, and we
+        will return the letter in the form of an integer to which it corresponds in unicode using the ord() function.
+        <pre class="brush: python">
+for p in pawns:
+    row = int(p[1])
+    col = ord(p[0])
+        </pre>
+        In order for our coordinates to start from 0 and to make it easier to count, let's add something else.
+        <pre class="brush: python">
 for p in pawns:
     row = int(p[1]) - 1
     col = ord(p[0]) - 97
-    pawns_indexes.add((row, col))
-</pre>
+        </pre>
+        In this way, we made it so that the letter "a" returns 0, not 97, and instead of "1" in the coordinates, we will
+        have 0. That is, instead of "a:1" == "97:1", we will get "a:1" == "0:0" as origin.
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        I need some help to proceed with the mission
+        I don't know what to do anymore. I need a little hint.
     </div>
     <div class="answer">
-        Next iterate all of the pawns and check if it's safe to count.
+       We can add our transformed coordinates to a variable called "pawns_indexes". We will add all our combinations to it.
+        <pre class="brush: python">
+pawns_indexes = []
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+    pawns_indexes.append((row, col))
+        </pre>
+        Or you can write this entire algorithm in the form of a list generator.
+        <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Nothing works. SOS
+    </div>
+    <div class="answer">
+        We need to add another for loop in which we check to see if the pawn is safe using our list of positions.
+        <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+for x, y in pawns_id:
+        if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
+            # bla bla
+        </pre>
+        A pawn is safe when there are other pawns in positions behind it, diagonally to the left and/or right.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I don't want to give up, help!
+    </div>
+    <div class="answer">
+        You have a few things left. Add a variable "count" in which you will count the number of safe pawns, wrap the code in a function, and return "count".
+        <pre class="brush: python">
+def safe_pawns(pawns: set) -> int:
+    pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+    count = 0
+    for x,y in pawns_id:
+        if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
+            count += 1
+    return count
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I want to be the best of the best PROGRAMMERS!!! SHOW ME MORE SOLUTIONS!!1!!!11!
+    </div>
+    <div class="answer">
+        Okay, okay! That's the spirit!=)
+        A somewhat similar solution, only implemented through two functions. In the first, they calculate the pawns
+        that are behind the current pawn, and in the second, they already check whether the current pawn is safe.
+        <pre class="brush: python">
+def getdiags(pawn):
+    c, r = map(ord, pawn)
+    return chr(c - 1) + chr(r - 1), chr(c + 1) + chr(r - 1)
 
-<pre class="brush: python">
-count = 0
-for row, col in pawns_indexes:
-    is_safe = ....
-    if is_safe:
-        count += 1
-</pre>
+def safe_pawns(pawns):
+    return len([p for p in pawns if any(d in pawns for d in getdiags(p))])
+        </pre>
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        I am gone half way through. Need help!
+        I want more!
     </div>
     <div class="answer">
-        You can check if it's safe by calculating the "support" cells and checking if they're in our
-        set.
-<pre class="brush: python">
-is_safe = ((row - 1, col - 1) in pawns_indexes) or ((row - 1, col + 1) in pawns_indexes)
-</pre>
-    </div>
-</div>
-<div class="question-answer">
-    <div class="question">
-        I am stuck. I need a small hint.
-    </div>
-    <div class="answer">
-        Use the hints provided to create one function and return the "count" as the result.
+        This is how you can implement the solution using the any() and sum() function.
+        <pre class="brush: python">
+def safe_pawns(pawns):
+    return sum((any(chr(ord(l) + i) + str(int(d) - 1) in pawns for i in [-1, 1])) for l, d in pawns)
+        </pre>
     </div>
 </div>
 

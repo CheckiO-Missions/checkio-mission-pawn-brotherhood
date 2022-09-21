@@ -1,0 +1,133 @@
+<body data-author="Doppelok">
+<div class="question-answer">
+    <div class="question">
+        Я не знаю, як розпочати вирішення цієї місії
+    </div>
+    <div class="answer">
+        Ідея наступна. У тебе є список з координатами розміщення пішок. Конвертуй його у вигляд матриці, як на шахівниці.
+        За допомогою цієї матриці ти зможеш порахувати відносне положення пішок між собою та визначити скільки з них в безпеці.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Мені потрібна допомога, щоб продовжити місію
+    </div>
+    <div class="answer">
+        Тобі буде корисно прочитати трохи інформації про:
+        <a href='https://docs.python.org/3.10/library/functions.html#int'>int()</a>
+        (<a href='https://www.w3schools.com/python/ref_func_int.asp'>приклад</a> ),
+        <a href='https://docs.python.org/3.10/library/functions.html#ord'>ord()</a>
+        (<a href='https://www.w3schools.com/python/ref_func_ord.asp'>приклад</a> ), та
+        <a href='https://www.w3schools.com/python/ref_set_add.asp'>set.add()</a>.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Потрібна допомога!
+    </div>
+    <div class="answer">
+        Першим кроком давай конвертуємо наші координати пішаків до числового стилю, щоб можна було потім з ними працювати
+        як з матрицею. Для цього використаємо int() щоб число з рядка стало цілочисельним типом даних, а літеру повернемо
+        у формі цілого числа, якому вона відповідає в юнікоді (unicode) за допомогою функції ord().
+        <pre class="brush: python">
+for p in pawns:
+    row = int(p[1])
+    col = ord(p[0])
+        </pre>
+        Для того, щоб наші координати починались з 0 і було зручніше рахувати, додамо ще дещо.
+        <pre class="brush: python">
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+        </pre>
+        Таким чином ми зробили так, що буква "a" повертає 0, а не 97 та замість "1" у координатах у нас буде 0. Тобто,
+        замість "a:1" == "97:1", ми отримаємо "a:1" == "0:0", як початок координат.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Я вже не знаю що робити. Мені потрібна маленька підказка.
+    </div>
+    <div class="answer">
+        Перетворені наші координати ми можемо додати до змінної, яку назвемо "pawns_indexes". До неї ми додамо усі наші
+        комбінації.
+        <pre class="brush: python">
+pawns_indexes = []
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+    pawns_indexes.append((row, col))
+        </pre>
+        Або можна весь цей алгоритм записати у вигляді генератора списку.
+        <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Нічого не працює. SOS
+    </div>
+    <div class="answer">
+        Потрібно додати ще один цикл for, в якому ми виконаємо перевірку на те, чи знаходить пішак у безпеці використовуючи
+        наш список позицій.
+        <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+for x, y in pawns_id:
+        if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
+            # bla bla
+        </pre>
+        Пішак в безпеці, коли на позиціях позаду нього, по діагоналі зліва і/ або справа присутні інші пішаки.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Не хочу здаватись, допоможи!
+    </div>
+    <div class="answer">
+        Тобі залишилось декілька речей. Додай змінну "count", в якій будеш рахувати кількість пішаків у безпеці, обгорни код у
+        функцію, та поверни "count".
+        <pre class="brush: python">
+def safe_pawns(pawns: set) -> int:
+    pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+    count = 0
+    for x,y in pawns_id:
+        if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
+            count += 1
+    return count
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Я хочу бути кращим з кращих ПРОГРАМІСТІВ!!! ПОКАЖИ МЕНІ БІЛЬШЕ РІШЕНЬ!!1!!!11!
+    </div>
+    <div class="answer">
+        Добре, добре! Оце настрій!=)
+        Дещо схоже рішення, тільки реалізоване через дві функції. В першій виконують розрахунок пішаків які знаходяться позаду
+        поточної пішки, а в другій вже перевіряють чи поточна пішка в безпеці.
+        <pre class="brush: python">
+def getdiags(pawn):
+    c, r = map(ord, pawn)
+    return chr(c - 1) + chr(r - 1), chr(c + 1) + chr(r - 1)
+
+def safe_pawns(pawns):
+    return len([p for p in pawns if any(d in pawns for d in getdiags(p))])
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Я хочу більше!
+    </div>
+    <div class="answer">
+        Ось так можна реалізувати рішення використовуючи функцію any() та sum().
+        <pre class="brush: python">
+def safe_pawns(pawns):
+    return sum((any(chr(ord(l) + i) + str(int(d) - 1) in pawns for i in [-1, 1])) for l, d in pawns)
+        </pre>
+    </div>
+</div>
+
+
+</body>

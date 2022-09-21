@@ -1,4 +1,3 @@
-//Dont change it
 requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
     function (extIO, $, TableComponent) {
 
