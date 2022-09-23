@@ -4,7 +4,7 @@
         I don't know how to start solving this mission
     </div>
     <div class="answer">
-        The idea is as follows. You have a list with the coordinates of the placement of pawns. Convert it to the form of a matrix, like a checkerboard.
+        The idea is as follows. You have a set with the coordinates of the placement of pawns. Convert it to the form of a matrix, like a checkerboard.
          With the help of this matrix, you will be able to calculate the relative position of the pawns among themselves and determine how many of them are safe.
     </div>
 </div>
@@ -71,7 +71,7 @@ pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
         We need to add another for loop in which we check to see if the pawn is safe using our list of positions.
         <pre class="brush: python">
 pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
-for x, y in pawns_id:
+for x, y in pawns_indexes:
         if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
             # bla bla
         </pre>
@@ -88,7 +88,7 @@ for x, y in pawns_id:
 def safe_pawns(pawns: set) -> int:
     pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
     count = 0
-    for x,y in pawns_id:
+    for x,y in pawns_indexes:
         if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
             count += 1
     return count

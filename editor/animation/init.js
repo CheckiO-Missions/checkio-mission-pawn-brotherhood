@@ -1,4 +1,4 @@
-requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
+requirejs(['ext_editor_io2', 'jquery_190', 'raphael_210'],
     function (extIO, $, TableComponent) {
 
         function ChessCanvas(dom) {
@@ -73,10 +73,6 @@ requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
 
 
         var io = new extIO({
-            functions: {
-                js: 'safePawns',
-                python: 'safe_pawns'
-            },
             animation: function($expl, data){
                 var checkioInput = data.in;
                 var explanation = data.ext?data.ext.explanation:undefined;
