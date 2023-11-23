@@ -73,8 +73,8 @@ pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
         наш список позицій.
         <pre class="brush: python">
 pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
-for x, y in pawns_id:
-        if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
+for x, y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
             # bla bla
         </pre>
         Пішак в безпеці, коли на позиціях позаду нього, по діагоналі зліва і/ або справа присутні інші пішаки.
@@ -91,8 +91,8 @@ for x, y in pawns_id:
 def safe_pawns(pawns: set) -> int:
     pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
     count = 0
-    for x,y in pawns_id:
-        if ((x - 1, y - 1) in pawns_id) or ((x - 1, y + 1) in pawns_indexes):
+    for x,y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
             count += 1
     return count
         </pre>
