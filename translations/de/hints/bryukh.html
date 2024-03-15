@@ -1,54 +1,130 @@
-<body data-author="bryukh">
+<body data-author="Doppelok">
 <div class="question-answer">
     <div class="question">
-        Ich habe keine Ahnung wie ich mit der Lösung anfangen soll.
+        Ich weiß nicht, wie ich mit der Lösung dieser Mission beginnen soll
     </div>
     <div class="answer">
-        Zu aller erst konvertiere die Koordinaten zu Indizes.
-<pre class="brush: python">
-pawns_indexes = set()
+        Die Idee ist wie folgt. Sie haben ein Set mit den Koordinaten für die Platzierung der Spielfiguren. Wandeln Sie sie in die Form einer Matrix um, wie ein Schachbrett.
+         Mit Hilfe dieser Matrix können Sie die relative Position der Bauern zueinander berechnen und feststellen, wie viele von ihnen sicher sind.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ich brauche Hilfe, um die Mission fortzusetzen
+    </div>
+    <div class="answer">
+        Es wird nützlich für Sie sein, einige Informationen zu lesen:
+       <a href='https://docs.python.org/3.10/library/functions.html#int'>int()</a>
+        (<a href='https://www.w3schools.com/python/ref_func_int.asp'>приклад</a> ),
+       <a href='https://docs.python.org/3.10/library/functions.html#ord'>ord()</a>
+        (<a href='https://www.w3schools.com/python/ref_func_ord.asp'>приклад</a> ), та
+       <a href='https://www.w3schools.com/python/ref_set_add.asp'>set.add()</a>.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Sie brauchen Hilfe!
+    </div>
+    <div class="answer">
+        Als ersten Schritt konvertieren wir unsere Bauernkoordinaten in einen numerischen Stil, so dass wir mit ihnen wie mit einer Matrix arbeiten können
+        eine Matrix. Dazu verwenden wir int(), so dass die Zahl aus der Zeichenkette zu einem Integer-Datentyp wird, und wir
+        geben den Buchstaben in Form einer Ganzzahl zurück, der er im Unicode entspricht, indem wir die Funktion ord() verwenden.
+       <pre class="brush: python">
+for p in pawns:
+    row = int(p[1])
+    col = ord(p[0])
+        </pre>
+        Damit unsere Koordinaten bei 0 beginnen und um das Zählen zu erleichtern, fügen wir noch etwas hinzu.
+       <pre class="brush: python">
 for p in pawns:
     row = int(p[1]) - 1
     col = ord(p[0]) - 97
-    pawns_indexes.add((row, col))
-</pre>
+        </pre>
+        So haben wir dafür gesorgt, dass der Buchstabe "a" 0 und nicht 97 ergibt, und anstelle von "1" in den Koordinaten werden wir
+        das heißt, statt "a:1" == "97:1" erhalten wir "a:1" == "0:0" als Ursprung.
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        Ich brauche Hilfe um weiter zu kommen.
+        Ich weiß nicht mehr, was ich tun soll. Ich brauche einen kleinen Tipp.
     </div>
     <div class="answer">
-        Jetzt solltest Du durch die Positionen der Bauern iterieren und überprüfen, wie
-        viele von ihnen sicher sind.
-<pre class="brush: python">
-count = 0
-for row, col in pawns_indexes:
-    is_safe = ....
-    if is_safe:
-        count += 1
-</pre>
+       Wir können unsere transformierten Koordinaten zu einer Variablen namens "pawns_indexes" hinzufügen. Wir fügen ihr alle unsere Kombinationen hinzu.
+       <pre class="brush: python">
+pawns_indexes = []
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+    pawns_indexes.append((row, col))
+        </pre>
+        Oder Sie können den gesamten Algorithmus in Form eines Listengenerators schreiben.
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+        </pre>
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        Ich hab's fast. Bitte hilf mir!
+        Nichts funktioniert. SOS
     </div>
     <div class="answer">
-        Du kannst überprüfen, ob ein Bauer sicher ist, indem Du die möglichen "verteidigenden"
-        Felder berechnest und prüfst, ob sie in dem Set vorkommen.
-<pre class="brush: python">
-is_safe = ((row - 1, col - 1) in pawns_indexes) or ((row - 1, col + 1) in pawns_indexes)
-</pre>
+        Wir müssen eine weitere for-Schleife hinzufügen, in der wir anhand unserer Liste von Positionen prüfen, ob der Bauer sicher ist.
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+for x, y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            # bla bla
+        </pre>
+        Ein Bauer ist sicher, wenn sich andere Bauern auf Positionen hinter ihm befinden, diagonal nach links und/oder rechts.
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        Ich hänge fest. Gib mir einen kleinen Tip.
+        Ich will nicht aufgeben, Hilfe!
     </div>
     <div class="answer">
-        Nutze die angezeigten Hinweise, um eine Funktion zu schreiben, die die Anzahl der
-        sicheren Bauern als Ergebnis zurückgibt.
+        Es bleiben Ihnen noch ein paar Dinge übrig. Fügen Sie eine Variable "count" hinzu, in der Sie die Anzahl der sicheren Bauern zählen werden, verpacken Sie den Code in eine Funktion und geben Sie "count" zurück.
+       <pre class="brush: python">
+def safe_pawns(pawns: set) -> int:
+    pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+    count = 0
+    for x,y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            count += 1
+    return count
+        </pre>
     </div>
 </div>
+<div class="question-answer">
+    <div class="question">
+        Ich will der beste der besten PROGRAMMIERER werden!!! ZEIGEN SIE MIR MEHR LÖSUNGEN!!!1!!!11!
+    </div>
+    <div class="answer">
+        Okay, okay! Das ist die richtige Einstellung!=)
+        Eine etwas ähnliche Lösung, nur durch zwei Funktionen implementiert. In der ersten berechnen sie die Bauern
+        die sich hinter dem aktuellen Bauern befinden, und in der zweiten prüfen sie bereits, ob der aktuelle Bauer sicher ist.
+       <pre class="brush: python">
+def getdiags(pawn):
+    c, r = map(ord, pawn)
+    return chr(c - 1) + chr(r - 1), chr(c + 1) + chr(r - 1)
+
+def safe_pawns(pawns):
+    return len([p for p in pawns if any(d in pawns for d in getdiags(p))])
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ich will mehr!
+    </div>
+    <div class="answer">
+        So können Sie die Lösung mit Hilfe der Funktionen any() und sum() umsetzen.
+       <pre class="brush: python">
+def safe_pawns(pawns):
+    return sum((any(chr(ord(l) + i) + str(int(d) - 1) in pawns for i in [-1, 1])) for l, d in pawns)
+        </pre>
+    </div>
+</div>
+
+
 </body>
