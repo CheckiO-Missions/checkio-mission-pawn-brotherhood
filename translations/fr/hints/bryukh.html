@@ -1,0 +1,130 @@
+<body data-author="Doppelok">
+<div class="question-answer">
+    <div class="question">
+        Je ne sais pas comment commencer à résoudre cette mission
+    </div>
+    <div class="answer">
+        L'idée est la suivante. Vous disposez d'un jeu avec les coordonnées de placement des pions. Convertissez-le sous la forme d'une matrice, comme un damier.
+         À l'aide de cette matrice, vous pourrez calculer la position relative des pions entre eux et déterminer combien d'entre eux sont en sécurité.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        J'ai besoin d'aide pour poursuivre la mission
+    </div>
+    <div class="answer">
+        Il vous sera utile de lire des informations sur:
+       <a target="_blank" href='https://docs.python.org/3.10/library/functions.html#int'>int()</a>
+        (<a target="_blank" href='https://www.w3schools.com/python/ref_func_int.asp'>example</a>),
+       <a target="_blank" href='https://docs.python.org/3.10/library/functions.html#ord'>ord()</a>
+        (<a target="_blank" href='https://www.w3schools.com/python/ref_func_ord.asp'>example</a>), та
+       <a target="_blank" href='https://www.w3schools.com/python/ref_set_add.asp'>set.add()</a>.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Besoin d'aide!
+    </div>
+    <div class="answer">
+        Dans un premier temps, convertissons les coordonnées de nos pions en format numérique afin de pouvoir les utiliser comme une
+        comme une matrice. Pour ce faire, nous utiliserons int() pour que le nombre de la chaîne devienne un type de données entier, et nous retournerons la lettre sous la forme d'un entier auquel elle correspond à l'unité
+        retournerons la lettre sous la forme d'un entier auquel elle correspond en unicode en utilisant la fonction ord().
+       <pre class="brush: python">
+for p in pawns:
+    row = int(p[1])
+    col = ord(p[0])
+        </pre>
+        Pour que nos coordonnées commencent à 0 et pour faciliter le comptage, ajoutons quelque chose d'autre.
+       <pre class="brush: python">
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+        </pre>
+        Ainsi, nous avons fait en sorte que la lettre "a" renvoie 0, et non 97, et qu'au lieu de "1" dans les coordonnées, nous ayons 0
+        autrement dit, au lieu de "a:1" == "97:1", nous obtiendrons "a:1" == "0:0" comme origine.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Je ne sais plus quoi faire. J'ai besoin d'un petit conseil.
+    </div>
+    <div class="answer">
+       Nous pouvons ajouter nos coordonnées transformées à une variable appelée "pawns_indexes". Nous y ajouterons toutes nos combinaisons.
+       <pre class="brush: python">
+pawns_indexes = []
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+    pawns_indexes.append((row, col))
+        </pre>
+        Vous pouvez également écrire l'ensemble de l'algorithme sous la forme d'un générateur de listes.
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Rien ne fonctionne. SOS
+    </div>
+    <div class="answer">
+        Nous devons ajouter une autre boucle for dans laquelle nous vérifions si le pion est en sécurité en utilisant notre liste de positions.
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+for x, y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            # bla bla
+        </pre>
+        Un pion est en sécurité lorsqu'il y a d'autres pions en position derrière lui, en diagonale à gauche et/ou à droite.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Je ne veux pas abandonner, aidez-moi!
+    </div>
+    <div class="answer">
+        Il vous reste quelques éléments. Ajoutez une variable "count" dans laquelle vous compterez le nombre de pions sûrs, intégrez le code dans une fonction et renvoyez "count".
+       <pre class="brush: python">
+def safe_pawns(pawns: set) -> int:
+    pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+    count = 0
+    for x,y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            count += 1
+    return count
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Je veux être le meilleur des meilleurs PROGRAMMEURS!!! MONTREZ-MOI PLUS DE SOLUTIONS!!1!!!11!
+    </div>
+    <div class="answer">
+        D'accord, d'accord! C'est l'esprit!=)
+        Une solution quelque peu similaire, mais mise en œuvre par le biais de deux fonctions. Dans la première, elles calculent les pions qui sont derrière le pion courant, et dans la seconde, elles vérifient déjà si le pion courant est en sécurité
+        qui se trouvent derrière le pion actuel, et dans la seconde, elles vérifient déjà si le pion actuel est en sécurité.
+       <pre class="brush: python">
+def getdiags(pawn):
+    c, r = map(ord, pawn)
+    return chr(c - 1) + chr(r - 1), chr(c + 1) + chr(r - 1)
+
+def safe_pawns(pawns):
+    return len([p for p in pawns if any(d in pawns for d in getdiags(p))])
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        J'en veux plus!
+    </div>
+    <div class="answer">
+        Voici comment vous pouvez mettre en œuvre la solution en utilisant les fonctions any() et sum().
+       <pre class="brush: python">
+def safe_pawns(pawns):
+    return sum((any(chr(ord(l) + i) + str(int(d) - 1) in pawns for i in [-1, 1])) for l, d in pawns)
+        </pre>
+    </div>
+</div>
+
+
+</body>
