@@ -1,0 +1,130 @@
+<body data-author="Doppelok">
+<div class="question-answer">
+    <div class="question">
+        我不知道如何开始解决这个任务
+    </div>
+    <div class="answer">
+        思路如下。你有一个包含棋子位置坐标的集合。将其转换为矩阵形式，就像棋盘一样。
+         借助这个矩阵，您就能计算出棋子之间的相对位置，并确定有多少个棋子是安全的。
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我需要帮助才能继续完成任务
+    </div>
+    <div class="answer">
+        请阅读以下信息：
+       <a target="_blank" href='https://docs.python.org/3.10/library/functions.html#int'>int()</a>
+        (<a target="_blank" href='https://www.w3schools.com/python/ref_func_int.asp'>example</a>)、
+       <a target="_blank" href='https://docs.python.org/3.10/library/functions.html#ord'>ord()</a>
+        (<a target="_blank" href='https://www.w3schools.com/python/ref_func_ord.asp'>example</a>), та
+       <a target="_blank" href='https://www.w3schools.com/python/ref_set_add.asp'>set.add()</a>.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        需要帮助！
+    </div>
+    <div class="answer">
+        第一步，让我们将棋子坐标转换为数字样式，这样就可以像处理矩阵一样处理它们了。
+        矩阵。为此，我们将使用 int()，这样字符串中的数字就会变成整数数据类型，而我们
+        我们将使用 ord() 函数，以整数形式返回字母在 unicode 中的对应值。
+       <pre class="brush: python">
+for p in pawns:
+    row = int(p[1])
+    col = ord(p[0])
+        </pre>
+        为了使我们的坐标从 0 开始，同时也为了方便计数，我们还需要添加一些东西。
+       <pre class="brush: python">
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+        </pre>
+        这样，字母 "a "将返回 0，而不是 97，坐标中的 "1 "将变为 0。
+        也就是说，原点不是 "a:1" == "97:1"，而是 "a:1" == "0:0"。
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我不知道该怎么办了。我需要一点提示。
+    </div>
+    <div class="answer">
+       我们可以将转换后的坐标添加到一个名为 "pawns_indexes "的变量中。我们将把所有的组合都加入其中。
+       <pre class="brush: python">
+pawns_indexes = []
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+    pawns_indexes.append((row, col))
+        </pre>
+        或者，你也可以用列表生成器的形式编写整个算法。
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        什么都行不通求救
+    </div>
+    <div class="answer">
+        我们需要添加另一个 for 循环，利用位置列表检查棋子是否安全。
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+for x, y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            # bla bla
+        </pre>
+        当一个棋子的后面、对角线左侧和/或右侧有其他棋子时，这个棋子就是安全的。
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我不想放弃，帮帮我！
+    </div>
+    <div class="answer">
+        你还剩下几件事。添加一个变量 "count"，用来计算安全棋子的数量，将代码封装在一个函数中，并返回 "count"。
+       <pre class="brush: python">
+def safe_pawns(pawns: set) -> int:
+    pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+    count = 0
+    for x,y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            count += 1
+    return count
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我想成为最棒的程序员！！！告诉我更多解决方案！！！1！！！11！
+    </div>
+    <div class="answer">
+        好吧，好吧！这就是精神！=)
+        一个有点类似的解决方案，只是通过两个函数来实现。在第一个函数中，它们会计算当前兵
+        而在第二个函数中，它们已经检查了当前棋子是否安全。
+       <pre class="brush: python">
+def getdiags(pawn):
+    c, r = map(ord, pawn)
+    return chr(c - 1) + chr(r - 1), chr(c + 1) + chr(r - 1)
+
+def safe_pawns(pawns):
+    return len([p for p in pawns if any(d in pawns for d in getdiags(p))])
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我还想要更多！
+    </div>
+    <div class="answer">
+        下面是使用 any() 和 sum() 函数实现解决方案的方法。
+       <pre class="brush: python">
+def safe_pawns(pawns):
+    return sum((any(chr(ord(l) + i) + str(int(d) - 1) in pawns for i in [-1, 1])) for l, d in pawns)
+        </pre>
+    </div>
+</div>
+
+
+</body>
