@@ -1,0 +1,69 @@
+<div class="for_info_only" style="text-align: center">
+    <img src="{{MEDIA}}title.png" style="max-height: 350px">
+</div>
+<p style="text-align: justify;">
+    世界上几乎每个人都知道这个古老的游戏<a target="_blank" href="http://en.wikipedia.org/wiki/Chess">Chess</a>
+    并至少对其规则有基本的了解。
+    它有各种移动模式的单位，允许
+    可以有大量不同的游戏位置（例如
+   <a target="_blank" href="http://oeis.org/A048987">Number of possible chess games at the end of the n-th plies.</a>)
+    本任务中，我们将研究国际象棋棋子的运动和行为。
+
+</p>
+
+
+<p style="text-align: justify;">
+    国际象棋是一种双人策略游戏，游戏在棋盘上进行。
+    行（称为行列，用数字 1 至 8 表示）和
+    八列（称为档，用字母 a 至 h 表示）方格。
+    棋盘上的每个方格都由一对独特的坐标来标识
+    - 一个字母和一个数字（例如，"a1"、"h8"、"d6"）。
+    在这次任务中，我们只需关注棋子。
+    兵可以吃掉相邻棋盘上斜前方一个位置上的对方棋子、
+    移动到该位置。对于白棋来说，前面的位置是行数大于 
+    的位置。
+</p>
+
+<p style="text-align: justify;">
+    小卒通常是一个较弱的单位，但我们有 8 个这样的单位，可以用来建造小卒防御墙。
+    通过这种策略，一个小卒可以保护其他小卒。
+    如果另一个兵能吃掉该格上的一个单位，那么这个兵就是安全的。
+    我们在棋盘上有几个白棋，而且只有白棋。
+    您应该设计代码，找出有多少个棋子是安全的。
+</p>
+
+<p style="text-align: center;">
+    <img class="for_info_only" title="pawns" src="{{MEDIA}}pawns.png" alt="pawns" style="max-height:260px"/>
+</p>
+
+<p style="text-align: justify;">
+    给您一组放置白棋的方格坐标。
+    您应该计算有多少个棋子是安全的。
+</p>
+<p>
+   <strong>输入： </strong> 一组字符串形式的已放置棋子的坐标。
+</p>
+
+<p>
+   <strong>输出： </strong> 安全棋子的数量（整数）。
+</p>
+
+
+
+<div class="for_info_only">
+    <p>
+        <strong>示例</strong>
+    </p>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
+
+<p style="text-align: justify;" class="for_info_only">
+   <strong>如何使用 </strong>
+    对于人工智能对局来说，其中一项重要任务就是估算对局状态。
+    本概念将展示如何在简单的国际象棋数字位置上实现这一点。
+</p>
+
+<p>
+   <strong>前提条件</strong><br>
+    0 &lt; 卒 &le; 8
+</p>
