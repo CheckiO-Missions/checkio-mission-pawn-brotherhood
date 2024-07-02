@@ -1,0 +1,130 @@
+<body data-author="Doppelok">
+<div class="question-answer">
+    <div class="question">
+        Nie wiem, jak zacząć rozwiązywać tę misję
+    </div>
+    <div class="answer">
+        Pomysł jest następujący. Mają Państwo zbiór ze współrzędnymi rozmieszczenia pionków. Proszę przekonwertować go do postaci macierzy, takiej jak szachownica.
+         Za pomocą tej macierzy będzie można obliczyć względne położenie pionków między sobą i określić, ile z nich jest bezpiecznych.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Potrzebuję pomocy, aby kontynuować misję
+    </div>
+    <div class="answer">
+        Przydatne będzie przeczytanie kilku informacji na temat:
+       <a target="_blank" href='https://docs.python.org/3.10/library/functions.html#int'>int()</a>
+        (<a target="_blank" href='https://www.w3schools.com/python/ref_func_int.asp'>example</a>),
+       <a target="_blank" href='https://docs.python.org/3.10/library/functions.html#ord'>ord()</a>
+        (<a target="_blank" href='https://www.w3schools.com/python/ref_func_ord.asp'>example</a>), та
+       <a target="_blank" href='https://www.w3schools.com/python/ref_set_add.asp'>set.add()</a>.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Proszę mi pomóc!
+    </div>
+    <div class="answer">
+        Jako pierwszy krok, przekonwertujmy nasze współrzędne pionków na styl numeryczny, abyśmy mogli pracować z nimi jak z
+        macierz. Aby to zrobić, użyjemy int(), aby liczba z łańcucha stała się całkowitym typem danych, a my
+        zwrócimy literę w postaci liczby całkowitej, której odpowiada w unicode za pomocą funkcji ord().
+       <pre class="brush: python">
+for p in pawns:
+    row = int(p[1])
+    col = ord(p[0])
+        </pre>
+        Aby nasze współrzędne zaczynały się od 0 i aby ułatwić liczenie, dodajmy coś jeszcze.
+       <pre class="brush: python">
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+        </pre>
+        W ten sposób sprawiliśmy, że litera "a" zwraca 0, a nie 97, a zamiast "1" we współrzędnych będziemy mieli 0. To znaczy, że zamiast "1" we współrzędnych będziemy mieli 0
+        czyli zamiast "a:1" == "97:1", otrzymamy "a:1" == "0:0".
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Nie wiem już, co robić. Potrzebuję małej podpowiedzi.
+    </div>
+    <div class="answer">
+       Możemy dodać nasze przekształcone współrzędne do zmiennej o nazwie "pionki_indeksy". Dodamy do niej wszystkie nasze kombinacje.
+       <pre class="brush: python">
+pawns_indexes = []
+for p in pawns:
+    row = int(p[1]) - 1
+    col = ord(p[0]) - 97
+    pawns_indexes.append((row, col))
+        </pre>
+        Można też napisać cały algorytm w formie generatora list.
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Nic nie działa. SOS
+    </div>
+    <div class="answer">
+        Musimy dodać kolejną pętlę for, w której sprawdzimy, czy pionek jest bezpieczny, korzystając z naszej listy pozycji.
+       <pre class="brush: python">
+pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+for x, y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            # bla bla
+        </pre>
+        Pionek jest bezpieczny, gdy inne pionki znajdują się na pozycjach za nim, po przekątnej w lewo i/lub w prawo.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Nie chcę się poddawać, proszę mi pomóc!
+    </div>
+    <div class="answer">
+        Zostało Panu jeszcze kilka rzeczy. Proszę dodać zmienną "count", w której policzy Pan liczbę bezpiecznych pionków, opakować kod w funkcję i zwrócić "count".
+       <pre class="brush: python">
+def safe_pawns(pawns: set) -> int:
+    pawns_indexes = [(int(i[1]), ord(i[0])) for i in pawns]
+    count = 0
+    for x,y in pawns_indexes:
+        if ((x - 1, y - 1) in pawns_indexes) or ((x - 1, y + 1) in pawns_indexes):
+            count += 1
+    return count
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Chcę być najlepszym z najlepszych PROGRAMISTÓW!!! PROSZĘ POKAZAĆ MI WIĘCEJ ROZWIĄZAŃ!!!1!!!11!
+    </div>
+    <div class="answer">
+        Dobra, dobra! That's the spirit!=)
+        Nieco podobne rozwiązanie, tylko zaimplementowane za pomocą dwóch funkcji. W pierwszej obliczane są pionki
+        które znajdują się za bieżącym pionkiem, a w drugiej sprawdzają już, czy bieżący pionek jest bezpieczny.
+       <pre class="brush: python">
+def getdiags(pawn):
+    c, r = map(ord, pawn)
+    return chr(c - 1) + chr(r - 1), chr(c + 1) + chr(r - 1)
+
+def safe_pawns(pawns):
+    return len([p for p in pawns if any(d in pawns for d in getdiags(p))])
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Chcę więcej!
+    </div>
+    <div class="answer">
+        W ten sposób można zaimplementować rozwiązanie przy użyciu funkcji any() i sum().
+       <pre class="brush: python">
+def safe_pawns(pawns):
+    return sum((any(chr(ord(l) + i) + str(int(d) - 1) in pawns for i in [-1, 1])) for l, d in pawns)
+        </pre>
+    </div>
+</div>
+
+
+</body>
