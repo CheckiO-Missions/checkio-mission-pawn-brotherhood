@@ -1,21 +1,21 @@
 <div class="for_info_only" style="text-align: center">
     <img src="{{MEDIA}}title.png" style="max-height: 350px">
 </div>
-<p>
-  世の中のほとんどすべての人が昔のゲーム <a href="http://ja.wikipedia.org/wiki/%E3%83%81%E3%82%A7%E3%82%B9">チェス</a>を知っていて、ルールについて基本的な理解はしている。チェスは様々なユニットを持ち、幅広い動きのパターンを持っているので非常に多くのゲームパターンを可能にしている。（例えば、<a href="http://oeis.org/A048987">最後のn手での可能なチェス盤面の数</a>)
+<p style="text-align: justify;">
+  世の中のほとんどすべての人が昔のゲーム <a target="_blank" href="http://ja.wikipedia.org/wiki/%E3%83%81%E3%82%A7%E3%82%B9">チェス</a>を知っていて、ルールについて基本的な理解はしている。チェスは様々なユニットを持ち、幅広い動きのパターンを持っているので非常に多くのゲームパターンを可能にしている。（例えば、<a target="_blank" href="http://oeis.org/A048987">最後のn手での可能なチェス盤面の数</a>)
   このミッションではチェスのポーンの動きと振る舞いについて調べる。
 
-    <!-- Almost everyone in the world knows about the ancient game <a href="http://en.wikipedia.org/wiki/Chess">Chess</a>
+    <!-- Almost everyone in the world knows about the ancient game <a target="_blank" href="http://en.wikipedia.org/wiki/Chess">Chess</a>
     and has at least a basic understanding of its rules.
     It has various units with a wide range of movement patterns allowing
     for a huge number of possible different game positions (for example
-    <a href="http://oeis.org/A048987">Number of possible chess games at the end of the n-th plies.</a>)
+    <a target="_blank" href="http://oeis.org/A048987">Number of possible chess games at the end of the n-th plies.</a>)
     For this mission, we will examine the movements and behavior of chess pawns. -->
 
 </p>
 
 
-<p>
+<p style="text-align: justify;">
    チェスは2人で行う戦略的ゲームであり、8つの列(1-8の数で示されるランクと呼ばれるものがある)と8つの行(a-hの文字で示されるファイルと呼ばれるものがある)の四角があるチェッカーのゲームボードの上で行う。
    それぞれのチェスボードの四角はユニークな座標のペアによって示される ー 文字と数である（例: "a1", "h8", "d6")。
    このミッションでは私たちはポーンについてのみ考える。ポーンは隣接した斜め前にある敵の駒を、そのマスに動かすことによって取ることができる。白のポーンにとって前のマスは現在のマスよりも大きい数字の列になる。
@@ -31,7 +31,7 @@
 
 </p>
 
-<p>
+<p style="text-align: justify;">
   ポーンは一般的に弱いユニットだが、私たちはそれらを8つ持っておりポーンの防御壁を築くことができる。
   この戦略ではひとつのポーンは別のポーンを守っている。
   別のポーンが取れるマスではポーンは安全(safe)である。
@@ -49,7 +49,7 @@
     <img class="for_info_only" title="pawns" src="{{MEDIA}}pawns.png" alt="pawns" style="max-height:260px"/>
 </p>
 
-<p>
+<p style="text-align: justify;">
   あなたは白のポーンが置かれているマスの座標のセット(set)が与えられる。
   いくつのポーンが安全であるか数えなくてはならない。
 
@@ -77,7 +77,7 @@
 <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
 
-<p class="for_info_only">
+<p style="text-align: justify;" class="for_info_only">
   <strong>どのように使われるか</strong>
   ゲームのAIにとって重要なタスクの一つがゲームの状態を見積もる能力である。
   このコンセプトはどうやってあなたが単純なチェスの図でやれるかを示すだろう。

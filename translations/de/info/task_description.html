@@ -1,18 +1,18 @@
 <div class="for_info_only" style="text-align: center">
     <img src="{{MEDIA}}title.png" style="max-height: 350px">
 </div>
-<p>
-    Fast jeder auf der Welt kennt das alte Spiel <a href="http://en.wikipedia.org/wiki/Chess">Chess</a>
+<p style="text-align: justify;">
+    Fast jeder auf der Welt kennt das alte Spiel <a target="_blank" href="http://en.wikipedia.org/wiki/Chess">Chess</a>
     und hat zumindest ein Grundverständnis für seine Regeln.
     Es verfügt über verschiedene Einheiten mit einer breiten Palette von Bewegungsmustern, die
     für eine große Anzahl von möglichen unterschiedlichen Spielpositionen (zum Beispiel
-   <a href="http://oeis.org/A048987">Number of possible chess games at the end of the n-th plies.</a>)
+   <a target="_blank" href="http://oeis.org/A048987">Number of possible chess games at the end of the n-th plies.</a>)
     Für diese Mission werden wir die Bewegungen und das Verhalten von Schachfiguren untersuchen.
 
 </p>
 
 
-<p>
+<p style="text-align: justify;">
     Schach ist ein Strategiespiel für zwei Spieler, das auf einem karierten Spielbrett gespielt wird, das in acht Reihen
     (Ränge genannt und mit den Zahlen 1 bis 8 bezeichnet) und
     acht Spalten (als Felder bezeichnet und mit den Buchstaben a bis h bezeichnet) unterteilt ist.
@@ -24,7 +24,7 @@
     als das Feld, das sie gerade besetzen.
 </p>
 
-<p>
+<p style="text-align: justify;">
     Ein Bauer ist im Allgemeinen eine schwache Einheit, aber wir haben 8 von ihnen, die wir nutzen können, um eine Bauernverteidigungsmauer zu bauen.
     Bei dieser Strategie verteidigt ein Bauer die anderen.
     Ein Bauer ist sicher, wenn ein anderer Bauer eine Einheit auf diesem Feld schlagen kann.
@@ -36,7 +36,7 @@
     <img class="for_info_only" title="pawns" src="{{MEDIA}}pawns.png" alt="pawns" style="max-height:260px"/>
 </p>
 
-<p>
+<p style="text-align: justify;">
     Sie erhalten eine Reihe von Feldkoordinaten, auf denen wir weiße Bauern platziert haben.
     Sie sollen zählen, wie viele Bauern sicher sind.
 </p>
@@ -57,7 +57,7 @@
 <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
 
-<p class="for_info_only">
+<p style="text-align: justify;" class="for_info_only">
    <strong>Wie es verwendet wird: </strong>
     Für eine Spiel-KI ist eine der wichtigsten Aufgaben die Fähigkeit, den Spielstand abzuschätzen.
     Dieses Konzept zeigt Ihnen, wie Sie dies anhand der Positionen einfacher Schachfiguren tun können.
