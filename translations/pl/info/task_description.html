@@ -1,0 +1,69 @@
+<div class="for_info_only" style="text-align: center">
+    <img src="{{MEDIA}}title.png" style="max-height: 350px">
+</div>
+<p style="text-align: justify;">
+    Prawie każdy na świecie wie o tej starożytnej grze <a target="_blank" href="http://en.wikipedia.org/wiki/Chess">Chess</a>
+    i przynajmniej w podstawowym stopniu rozumie jej zasady.
+    Posiada różne jednostki z szerokim zakresem wzorców ruchu, co pozwala na
+    na ogromną liczbę możliwych różnych pozycji w grze (na przykład
+   <a target="_blank" href="http://oeis.org/A048987">Number of possible chess games at the end of the n-th plies.</a>)
+    W tej misji zbadamy ruchy i zachowanie pionków szachowych.
+
+</p>
+
+
+<p style="text-align: justify;">
+    Szachy to dwuosobowa gra strategiczna rozgrywana na szachownicy ułożonej w ośmiu rzędach (zwanych szeregami i oznaczanych cyframi od 1 do 8)
+    (zwanych szeregami i oznaczonych cyframi od 1 do 8) i ośmiu kolumnach (zwanych
+    osiem kolumn (zwanych polami i oznaczonych literami od a do h) kwadratów.
+    Każde pole szachownicy jest identyfikowane przez unikalną parę współrzędnych
+    - literą i liczbą (np. "a1", "h8", "d6").
+    W tej misji musimy zająć się tylko pionkami.
+    Pionek może zbić figurę przeciwnika na polu znajdującym się po przekątnej przed nim na sąsiednim polu,
+    przesuwając się na to pole. Dla białych pionków przednimi polami są pola o większym numerze rzędu niż pole, które aktualnie zajmują 
+    niż pole, które aktualnie zajmują.
+</p>
+
+<p style="text-align: justify;">
+    Pionek jest generalnie słabą jednostką, ale mamy ich 8, które możemy wykorzystać do zbudowania pionkowego muru obronnego.
+    W tej strategii jeden pionek broni pozostałych.
+    Pionek jest bezpieczny, jeśli inny pionek może przejąć jednostkę na tym polu.
+    Na szachownicy mamy kilka białych pionków i tylko białe pionki.
+    Proszę zaprojektować swój kod, aby sprawdzić, ile pionków jest bezpiecznych.
+</p>
+
+<p style="text-align: center;">
+    <img class="for_info_only" title="pawns" src="{{MEDIA}}pawns.png" alt="pawns" style="max-height:260px"/>
+</p>
+
+<p style="text-align: justify;">
+    Otrzymują Państwo zestaw współrzędnych pól, na których umieściliśmy białe pionki.
+    Proszę policzyć, ile pionków jest bezpiecznych.
+</p>
+<p>
+   <strong>Dane wejściowe: </strong> Współrzędne umieszczonych pionków jako zestaw ciągów znaków.
+</p>
+
+<p>
+   <strong>Wyjście: </strong> Liczba bezpiecznych pionków jako liczba całkowita.
+</p>
+
+
+
+<div class="for_info_only">
+    <p>
+        <strong>Przykład:</strong>
+    </p>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
+
+<p style="text-align: justify;" class="for_info_only">
+   <strong>Jak to jest używane: </strong>
+    Dla gry AI jednym z ważnych zadań jest zdolność do oszacowania stanu gry.
+    Ta koncepcja pokaże, jak można to zrobić na prostych pozycjach figur szachowych.
+</p>
+
+<p>
+   <strong>Warunek wstępny:</strong><br>
+    0 &lt; pionków &le; 8
+</p>
